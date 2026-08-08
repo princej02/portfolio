@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "Commit Mono Variable", monospace;
+  --font-sans: "Satoshi", sans-serif;
+
+  --color-background: oklch(17% 0 0);
+  --color-surface: oklch(16% 0 0);
+  --color-surface-alt: oklch(19% 0 0);
+  --color-text: oklch(93% 0 0);
+  --color-text-muted: oklch(50% 0 0);
+  --color-border: oklch(22% 0 0);
+
+  --color-accent-ui: oklch(60% 0.08 220);
+  --color-accent-logic: oklch(60% 0.08 160);
+  --color-accent-neural: oklch(60% 0.08 290);
+  --color-accent-loop: oklch(60% 0.08 60);
+  --color-accent-audio: oklch(60% 0.08 340);
+  --color-accent-native: oklch(60% 0.08 250);
+  --color-accent-syntax: oklch(60% 0.08 130);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-background: oklch(94% 0 0);
+    --color-surface: oklch(99% 0 0);
+    --color-surface-alt: oklch(90% 0 0);
+    --color-text: oklch(15% 0 0);
+    --color-text-muted: oklch(55% 0 0);
+    --color-border: oklch(82% 0 0);
+  }
+}
+
+.prose {
+  color: var(--color-text);
+  max-width: 65ch;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.prose a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose img {
+  width: 100%;
+  border-radius: 0;
+  margin: 2rem 0;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}

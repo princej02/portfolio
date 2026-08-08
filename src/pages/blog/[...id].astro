@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getCollection, render } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+    return import.meta.env.PROD ? data.draft !== true : true
+  })
+
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }))
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>
+}
+
+const { post } = Astro.props as Props
+const { Content } = await render(post)
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  ...(post.data.updatedDate && { dateModified: post.data.updatedDate.toISOString() }),
+  author: {
+    '@type': 'Person',
+    name: 'Prince Jecco-Obi',
+  },
+  keywords: [post.data.section, ...post.data.tags].join(', '),
+}
+---
+
+<Layout
+  title={`${post.data.title} — Prince Jecco-Obi`}
+  description={post.data.description}
+  image={post.data.cover ?? '/og-image.png'}
+  type="article"
+>
+  <main class="container mx-auto px-4 py-24 max-w-2xl min-h-screen">
+    <header class="mb-12">
+      <span class="text-xs tracking-widest uppercase text-text-muted">
+        {post.data.section}
+      </span>
+      <h1 class="text-4xl font-bold mt-2 mb-4">{post.data.title}</h1>
+      <p class="text-text-muted text-sm">
+        {post.data.pubDate.toLocaleDateString('en-GB', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+        {post.data.readTime && <span> · {post.data.readTime} min read</span>}
+      </p>
+    </header>
+    <article class="prose">
+      <Content />
+    </article>
+  </main>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+</Layout>

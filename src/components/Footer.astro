@@ -1,0 +1,46 @@
+<footer class="container mx-auto px-4 pt-20 pb-8 mt-24 border-t border-border">
+  <a
+    href="mailto:princej02_dev@proton.me"
+    class="group flex items-end gap-3 sm:gap-4 w-fit mb-16"
+  >
+    <span class="text-4xl sm:text-6xl font-bold leading-none">Let's talk</span>
+    <span
+      class="text-3xl sm:text-5xl leading-none text-text-muted transition-all duration-300 ease-out group-hover:text-text group-hover:translate-x-1.5 group-hover:-translate-y-1.5"
+      aria-hidden="true"
+    >
+      ↗
+    </span>
+  </a>
+
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-8">
+    <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
+      <a href="/#introduction" class="hover:text-text transition-colors">Intro</a>
+      <a href="/#works" class="hover:text-text transition-colors">Works</a>
+      <a href="/#blog" class="hover:text-text transition-colors">Writings</a>
+      <a href="https://github.com/princej02" target="_blank" class="hover:text-text transition-colors">GitHub</a>
+      <a href="/rss.xml" class="hover:text-text transition-colors">RSS</a>
+    </nav>
+
+    <div class="flex flex-col sm:items-end gap-1 text-xs text-text-muted">
+      <span id="footer-local-time" data-tz="Europe/London">Newcastle, UK</span>
+      <span>Built by Prince Jecco-Obi using Astro · © {new Date().getFullYear()}</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateFooterTime() {
+    const el = document.getElementById('footer-local-time')
+    if (!el) return
+    const tz = el.dataset.tz || 'Europe/London'
+    const time = new Intl.DateTimeFormat('en-GB', {
+      timeZone: tz,
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date())
+    el.textContent = `Newcastle, UK — ${time} local`
+  }
+
+  updateFooterTime()
+  document.addEventListener('astro:page-load', updateFooterTime)
+</script>

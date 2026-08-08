@@ -1,0 +1,42 @@
+---
+---
+<header transition:persist class="fixed top-0 left-0 right-0 z-50">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/">
+      <p transition:animate="slide" class="text-xl">
+      Prince Jecco-Obi
+      <span class="text-text-muted"> | Developer</span>
+      </p>
+    </a>
+    <div class="flex items-center gap-3 sm:gap-4 text-xs tracking-widest uppercase text-text-muted">
+      <span class="hidden sm:inline">Newcastle, UK</span>
+      <span class="hidden sm:block w-px h-3 bg-border" aria-hidden="true"></span>
+      <span id="header-clock" class="font-mono normal-case tracking-normal tabular-nums text-text" data-tz="Europe/London">
+        00:00:00
+      </span>
+      <span class="w-px h-3 bg-border" aria-hidden="true"></span>
+      <span class="flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true"></span>
+        Live
+      </span>
+    </div>
+  </div>
+</header>
+
+<script>
+  function updateHeaderClock() {
+    const el = document.getElementById('header-clock')
+    if (!el) return
+    const tz = el.dataset.tz || 'Europe/London'
+    el.textContent = new Intl.DateTimeFormat('en-GB', {
+      timeZone: tz,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).format(new Date())
+  }
+
+  updateHeaderClock()
+  setInterval(updateHeaderClock, 1000)
+</script>

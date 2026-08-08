@@ -1,0 +1,129 @@
+---
+---
+
+<div id="custom-cursor" transition:persist>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+</div>
+
+<style>
+  @media (hover: hover) and (pointer: fine) {
+    :global(html) {
+      cursor: none;
+    }
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 999px;
+    mix-blend-mode: difference;
+    will-change: transform;
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-text);
+    transition: opacity 0.2s ease;
+  }
+
+  .cursor-ring {
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border: 1px solid var(--color-text);
+    transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, opacity 0.25s ease;
+  }
+
+  .cursor-ring.is-active {
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    #custom-cursor {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Astro's view-transition navigation doesn't reliably keep .cursor-dot/
+  // .cursor-ring as the same DOM nodes across pages (even with
+  // transition:persist), and this script doesn't reliably re-run either —
+  // so listeners must never cache an element reference. Every handler below
+  // re-queries the DOM fresh, which is correct no matter what happened to
+  // the underlying nodes during navigation.
+  function currentDot() {
+    return document.querySelector<HTMLElement>('.cursor-dot')
+  }
+  function currentRing() {
+    return document.querySelector<HTMLElement>('.cursor-ring')
+  }
+
+  function setupCursor() {
+    const isFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches
+    if (!isFinePointer || !currentDot() || !currentRing()) return
+
+    const w = window as any
+    if (w.__cursorInit) return
+    w.__cursorInit = true
+
+    let mouseX = window.innerWidth / 2
+    let mouseY = window.innerHeight / 2
+    let ringX = mouseX
+    let ringY = mouseY
+
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX
+      mouseY = e.clientY
+      const dot = currentDot()
+      if (dot) dot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`
+    })
+
+    function raf() {
+      ringX += (mouseX - ringX) * 0.18
+      ringY += (mouseY - ringY) * 0.18
+      const ring = currentRing()
+      if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px)`
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    document.addEventListener('mouseover', e => {
+      if ((e.target as HTMLElement).closest('a, button, [role="button"]')) {
+        currentRing()?.classList.add('is-active')
+        const dot = currentDot()
+        if (dot) dot.style.opacity = '0'
+      }
+    })
+    document.addEventListener('mouseout', e => {
+      if ((e.target as HTMLElement).closest('a, button, [role="button"]')) {
+        currentRing()?.classList.remove('is-active')
+        const dot = currentDot()
+        if (dot) dot.style.opacity = '1'
+      }
+    })
+
+    document.addEventListener('mouseleave', () => {
+      const dot = currentDot()
+      const ring = currentRing()
+      if (dot) dot.style.opacity = '0'
+      if (ring) ring.style.opacity = '0'
+    })
+    document.addEventListener('mouseenter', () => {
+      const dot = currentDot()
+      const ring = currentRing()
+      if (dot) dot.style.opacity = '1'
+      if (ring) ring.style.opacity = '1'
+    })
+  }
+
+  setupCursor()
+</script>

@@ -1,0 +1,65 @@
+---
+import { featuredProjects } from '../../data/projects'
+
+type GithubRepo = {
+  name: string
+  html_url: string
+  homepage: string | null
+  stargazers_count: number
+  language: string | null
+  pushed_at: string
+}
+
+async function fetchRepo(repo: string): Promise<GithubRepo | null> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}`)
+    if (!res.ok) return null
+    return await res.json()
+  } catch {
+    return null
+  }
+}
+
+const projects = await Promise.all(
+  featuredProjects.map(async project => ({
+    ...project,
+    repoData: await fetchRepo(project.repo),
+  }))
+)
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })
+}
+---
+
+<section id="works" class="py-24 px-4">
+  <h2 class="text-xs tracking-widest uppercase text-text-muted mb-8">Works</h2>
+  <ul class="border-t border-border">
+    {projects.map(({ repo, blurb, live, repoData }) => {
+      const name = repoData?.name ?? repo.split('/')[1]
+      const githubUrl = repoData?.html_url ?? `https://github.com/${repo}`
+      const liveUrl = live ?? repoData?.homepage ?? undefined
+      return (
+        <li class="border-b border-border py-6 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6">
+          <div class="flex-1">
+            <div class="flex items-baseline gap-2 flex-wrap">
+              <span class="text-base font-medium">{name}</span>
+              <span class="text-text-muted text-sm">{blurb}</span>
+            </div>
+            {repoData && (
+              <div class="flex gap-3 text-xs text-text-muted mt-2">
+                {repoData.language && <span>{repoData.language}</span>}
+                {repoData.stargazers_count > 0 && <span>★ {repoData.stargazers_count}</span>}
+                <span>Updated {formatDate(repoData.pushed_at)}</span>
+              </div>
+            )}
+          </div>
+          <span class="flex gap-3 text-xs text-text-muted shrink-0">
+            <a href={githubUrl} target="_blank" class="hover:text-text transition-colors">GitHub</a>
+            {liveUrl && <a href={liveUrl} target="_blank" class="hover:text-text transition-colors">Live</a>}
+          </span>
+        </li>
+      )
+    })}
+  </ul>
+</section>

@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import Blog from '../components/sections/Blog';
+import Intro from '../components/sections/Intro.astro';
+import Works from '../components/sections/Works.astro';
+import Layout from '../layouts/Layout.astro';
+
+const posts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? data.draft !== true : true
+})
+---
+
+<Layout>
+	<main transition:animate="fade" class="container mx-auto px-4">
+    <Intro />
+    <Works />
+    <Blog posts={posts} client:idle/>
+  </main>
+</Layout>
