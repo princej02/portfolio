@@ -1,46 +1,35 @@
-# Astro Starter Kit: Basics
+# Prince Jecco-Obi — Portfolio
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Personal site and blog. Built with Astro, mostly static, minimal by design.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- **Astro 6** — static output, view transitions between pages
+- **Tailwind CSS v4** — styling, no component library
+- **React** — a couple of small islands (blog category filter)
+- **MDX** — blog posts, via Astro content collections
+- **Lenis** — smooth scroll
+- **Astro Expressive Code** — code blocks in posts
 
-Inside of your Astro project, you'll see the following folders and files:
+## Content
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- **Works** (`src/data/projects.ts`) — a curated list of repo names; stars, language, and last-updated are fetched live from the GitHub API at build time, so nothing here goes stale
+- **Writings** (`src/content/blog/*.mdx`) — posts filed under `dev`, `gaming`, or `misc`; set `draft: true` to keep one out of production without deleting it
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+| Command           | Action                                           |
+| :----------------- | :----------------------------------------------- |
+| `pnpm install`      | Installs dependencies                            |
+| `pnpm dev`          | Starts local dev server at `localhost:4321`      |
+| `pnpm build`        | Build the production site to `./dist/`           |
+| `pnpm preview`      | Preview the build locally, before deploying      |
+| `pnpm astro ...`    | Run CLI commands like `astro add`, `astro check` |
 
-## 👀 Want to learn more?
+## Before deploying
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [ ] Set `site` in `astro.config.mjs` to the real domain (currently a placeholder — it feeds the sitemap, canonical URLs, RSS, and Open Graph tags)
+- [ ] Update the `Sitemap:` line in `public/robots.txt` to match
+- [ ] Fill in the real project blurbs in `src/data/projects.ts`
