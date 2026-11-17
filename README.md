@@ -30,6 +30,4 @@ All commands are run from the root of the project, from a terminal:
 
 ## Before deploying
 
-- [ ] Set `site` in `astro.config.mjs` to the real domain (currently a placeholder — it feeds the sitemap, canonical URLs, RSS, and Open Graph tags)
-- [ ] Update the `Sitemap:` line in `public/robots.txt` to match
 - [ ] Fill in the real project blurbs in `src/data/projects.ts`

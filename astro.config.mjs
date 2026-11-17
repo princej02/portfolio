@@ -38,9 +38,9 @@ export default defineConfig({
       }
     }
   ],
-  // TODO: replace with your real production domain before deploying —
-  // this feeds the sitemap, canonical URLs, RSS links, and Open Graph tags
-  site: 'https://replace-with-your-domain.com',
+  // Single source of truth for the domain: feeds the sitemap, robots.txt,
+  // canonical URLs, RSS links, and Open Graph / Twitter tags
+  site: 'https://princej.dev',
   integrations: [// must come after expressiveCode
   expressiveCode({
     themes: ['github-dark'],  // swap to any Shiki theme
