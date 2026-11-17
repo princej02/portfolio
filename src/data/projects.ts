@@ -10,7 +10,7 @@ export type FeaturedProject = {
 export const featuredProjects: FeaturedProject[] = [
   {
     repo: 'princej02/groq',
-    blurb: 'A Go CLI for reading, filtering, and reformatting CSV files — table, Markdown, or CSV output.',
+    blurb: 'A Go CLI for reading, filtering, and reformatting CSV files to table, Markdown, or CSV output.',
   },
   {
     repo: 'princej02/pomodoro',
@@ -19,7 +19,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     repo: 'princej02/habitflow',
-    blurb: 'A local-first CLI habit tracker in Go — streaks and completions, no cloud, no accounts.',
+    blurb: 'A local-first CLI habit tracker in Go: streaks and completions, no cloud, no accounts.',
   },
   {
     repo: 'princej02/lever',

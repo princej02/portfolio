@@ -12,7 +12,7 @@ export async function GET(context: APIContext) {
   )
 
   return rss({
-    title: 'Prince Jecco-Obi — Writings',
+    title: 'Prince Jecco-Obi | Writings',
     description: 'Writings on dev, gaming, and everything in between',
     site: context.site!,
     items: sorted.map(post => ({
