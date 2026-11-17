@@ -9,7 +9,7 @@ import { Resvg } from '@resvg/resvg-js'
 const colors = {
   background: '#0f0f0f', // --color-background
   text: '#e8e8e8', // --color-text
-  muted: '#636363', // --color-text-muted
+  muted: '#808080', // --color-text-muted
   border: '#1b1b1b', // --color-border
   live: '#00c950', // tailwind green-500
 }

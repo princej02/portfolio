@@ -8,7 +8,7 @@
   --color-surface: oklch(16% 0 0);
   --color-surface-alt: oklch(19% 0 0);
   --color-text: oklch(93% 0 0);
-  --color-text-muted: oklch(50% 0 0);
+  --color-text-muted: oklch(60% 0 0);
   --color-border: oklch(22% 0 0);
 
   --color-accent-ui: oklch(60% 0.08 220);
@@ -26,7 +26,7 @@
     --color-surface: oklch(99% 0 0);
     --color-surface-alt: oklch(90% 0 0);
     --color-text: oklch(15% 0 0);
-    --color-text-muted: oklch(55% 0 0);
+    --color-text-muted: oklch(51% 0 0);
     --color-border: oklch(82% 0 0);
   }
 }
