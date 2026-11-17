@@ -22,7 +22,7 @@
     </nav>
 
     <div class="flex flex-col sm:items-end gap-1 text-xs text-text-muted">
-      <span id="footer-local-time" data-tz="Europe/London">Newcastle, UK</span>
+      <span id="footer-local-time" data-tz="Europe/London">Liverpool, UK</span>
       <span>Built by Prince Jecco-Obi using Astro · © {new Date().getFullYear()}</span>
     </div>
   </div>
@@ -38,7 +38,7 @@
       hour: '2-digit',
       minute: '2-digit',
     }).format(new Date())
-    el.textContent = `Newcastle, UK — ${time} local`
+    el.textContent = `Liverpool, UK · ${time} local`
   }
 
   updateFooterTime()
