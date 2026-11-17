@@ -35,7 +35,7 @@ function formatDate(dateStr: string) {
 <section id="works" class="py-24 px-4">
   <h2 class="text-xs tracking-widest uppercase text-text-muted mb-8">Works</h2>
   <ul class="border-t border-border">
-    {projects.map(({ repo, blurb, live, repoData }) => {
+    {projects.map(({ repo, blurb, live, npm, repoData }) => {
       const name = repoData?.name ?? repo.split('/')[1]
       const githubUrl = repoData?.html_url ?? `https://github.com/${repo}`
       const liveUrl = live ?? repoData?.homepage ?? undefined
@@ -56,6 +56,7 @@ function formatDate(dateStr: string) {
           </div>
           <span class="flex gap-3 text-xs text-text-muted shrink-0">
             <a href={githubUrl} target="_blank" class="hover:text-text transition-colors">GitHub</a>
+            {npm && <a href={npm} target="_blank" class="hover:text-text transition-colors">npm</a>}
             {liveUrl && <a href={liveUrl} target="_blank" class="hover:text-text transition-colors">Live</a>}
           </span>
         </li>

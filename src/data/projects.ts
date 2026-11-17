@@ -5,9 +5,16 @@ export type FeaturedProject = {
   blurb: string
   /** Override the live-demo link if it's not set as the repo homepage on GitHub */
   live?: string
+  /** npm package page, for published libraries */
+  npm?: string
 }
 
 export const featuredProjects: FeaturedProject[] = [
+  {
+    repo: 'princej02/tinystate',
+    blurb: 'A small, typed state machine library for TypeScript, published on npm.',
+    npm: 'https://www.npmjs.com/package/@prince_j/tinystate',
+  },
   {
     repo: 'princej02/groq',
     blurb: 'A Go CLI for reading, filtering, and reformatting CSV files to table, Markdown, or CSV output.',
