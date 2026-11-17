@@ -21,6 +21,10 @@ const sections = ['all', 'dev', 'gaming', 'misc'] as const
 export default function Blog({ posts }: Props) {
   const [active, setActive] = useState<string>('all')
 
+  const visibleSections = sections.filter(
+    section => section === 'all' || posts.some(p => p.data.section === section)
+  )
+
   const filtered = active === 'all'
     ? posts
     : posts.filter(p => p.data.section === active)
@@ -30,7 +34,7 @@ export default function Blog({ posts }: Props) {
       <div className="flex items-center gap-6 mb-8">
         <h2 className="text-xs tracking-widest uppercase text-text-muted">Writings</h2>
         <div className="flex gap-3 flex-wrap">
-          {sections.map(section => (
+          {visibleSections.map(section => (
             <button
               key={section}
               onClick={() => setActive(section)}
